@@ -1,26 +1,26 @@
 from ImageClassifier.config.configuration import ConfigurationManager
-from ImageClassifier.components.data_ingestion import DataIngestion
+from ImageClassifier.components.base_model import BaseModel
 from ImageClassifier import logger
 
+STAGE_NAME = "Prepare Base Model"
 
-
-
-STAGE_NAME = "Data Ingestion"
-
-class DataIngestionPipeline:
+class BaseModelPreparationPipeline:
     def __init__(self) -> None:
         pass
     
     def main(self) -> None:
         config = ConfigurationManager()
-        data_ingestion_config = config.get_data_ingestion_config()
-        data_ingestion = DataIngestion(config=data_ingestion_config)
-        data_ingestion.extract_zip_file()
+        base_model_config = config.get_base_model_config()
+        base_model = BaseModel(config=base_model_config)
+        base_model.get_base_model()
+        base_model.update_base_model()
+
 
 if __name__ == '__main__':
     try:
+        logger.info(f"*******************")
         logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
-        obj = DataIngestionPipeline()
+        obj = BaseModelPreparationPipeline()
         obj.main()
         logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
     except Exception as e:

@@ -1,1 +1,7 @@
-key: 1
+AUGMENTATION: True
+IMAGE_SIZE: [299, 299, 3] # for inception v3
+INCLUDE_TOP: False
+EPOCHS: 1
+CLASSES: 15
+WEIGHTS: imagenet
+LEARNING_RATE: 0.01

@@ -1,4 +1,4 @@
-from ImageClassifier.entity.config_entity import *
+from ImageClassifier.entity.config_entity import DataIngestionConfig
 import zipfile
 import os
 
