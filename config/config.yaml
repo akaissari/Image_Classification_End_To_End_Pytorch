@@ -3,5 +3,7 @@ artifacts_root: artifacts
 
 data_ingestion:
   local_data_file: artifacts/data_ingestion/PlantVillage.zip
+  root_dir: artifacts/data_ingestion
   unzip_dir: artifacts/data_ingestion
   data_name: "PlantVillage"
+  
