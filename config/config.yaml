@@ -2,9 +2,12 @@ artifacts_root: artifacts
 
 
 data_ingestion:
-  local_data_file: artifacts/data_ingestion/PlantVillage.zip
+  local_data_file: artifacts/PlantVillage.zip
   root_dir: artifacts/data_ingestion
   unzip_dir: artifacts/data_ingestion
+  train_dir: artifacts/data_ingestion/train
+  val_dir: artifacts/data_ingestion/val
+  test_dir: artifacts/data_ingestion/test
   data_name: "PlantVillage"
   
 base_model:
@@ -16,3 +19,8 @@ prepare_callbacks:
   root_dir: artifacts/callbacks
   tensorboard_root_log_dir: artifacts/callbacks/tensorboard_log_dir
   checkpoint_model_filepath: artifacts/callbacks/checkpoint_dir/model_weights.pth
+
+training:
+  root_dir: artifacts/training
+  trained_model_path: artifacts/training/model_trained_weights.pth
+  data_path: artifacts/data_ingestion

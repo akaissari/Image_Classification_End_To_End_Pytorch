@@ -16,6 +16,9 @@ class ConfigurationManager:
     def get_data_ingestion_config(self) -> DataIngestionConfig:
         config = self.config.data_ingestion
         create_directories([config.root_dir])
+        create_directories([config.train_dir])
+        create_directories([config.val_dir])
+        create_directories([config.test_dir])
 
         data_ingestion_config = DataIngestionConfig(
             root_dir=config.root_dir,
@@ -56,3 +59,23 @@ class ConfigurationManager:
             checkpoint_model_filepath=Path(config.checkpoint_model_filepath)
         )
         return callback_config
+    
+    def get_training_config(self) -> TrainingConfig:
+        training = self.config.training
+        base_model_config = self.config.prepare_base_model
+        params = self.params
+        training_data = os.path.join(self.config.data_ingestion.unzip_dir, self.config.data_ingestion.data_name)
+        create_directories([Path(training.root_dir)])
+
+        training_config = TrainingConfig(
+            root_dir=Path(training.root_dir),
+            data_path = Path(training.data_path),
+            trained_model_path=Path(training.trained_model_path),
+            updated_base_model_path=Path(base_model_config.updated_base_model_path),
+            training_data=Path(training_data),
+            params_epochs=params.EPOCHS,
+            params_batch_size=params.BATCH_SIZE,
+            params_is_augmentation=params.AUGMENTATION,
+            params_image_size=params.IMAGE_SIZE
+        )
+        return training_config
