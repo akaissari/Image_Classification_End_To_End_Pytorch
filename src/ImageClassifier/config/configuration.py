@@ -23,7 +23,11 @@ class ConfigurationManager:
         data_ingestion_config = DataIngestionConfig(
             root_dir=config.root_dir,
             local_data_file=config.local_data_file,
-            unzip_dir=config.unzip_dir
+            unzip_dir=config.unzip_dir,
+            train_dir=config.train_dir,
+            val_dir=config.val_dir,
+            test_dir=config.test_dir,
+            data_name=config.data_name
         )
         return data_ingestion_config
     
@@ -38,7 +42,6 @@ class ConfigurationManager:
             updated_base_model_path=Path(config.updated_base_model_path),
             params_image_size=self.params.IMAGE_SIZE,
             params_learning_rate=self.params.LEARNING_RATE,
-            params_include_top=self.params.INCLUDE_TOP,
             params_weights=self.params.WEIGHTS,
             params_classes=self.params.CLASSES
         )
@@ -62,7 +65,7 @@ class ConfigurationManager:
     
     def get_training_config(self) -> TrainingConfig:
         training = self.config.training
-        base_model_config = self.config.prepare_base_model
+        base_model_config = self.config.base_model
         params = self.params
         training_data = os.path.join(self.config.data_ingestion.unzip_dir, self.config.data_ingestion.data_name)
         create_directories([Path(training.root_dir)])
@@ -76,6 +79,7 @@ class ConfigurationManager:
             params_epochs=params.EPOCHS,
             params_batch_size=params.BATCH_SIZE,
             params_is_augmentation=params.AUGMENTATION,
+            params_weights=params.WEIGHTS,
             params_image_size=params.IMAGE_SIZE
         )
         return training_config

@@ -13,9 +13,10 @@ class ModelTrainingPipeline:
 
     def main(self):
         config = ConfigurationManager()
-        callbacks_config = config.get_callbacks_config()
+        callbacks_config = config.get_callback_config()
         training_config = config.get_training_config()
-        training = Training(config=training_config, callback_config=callbacks_config)
+        base_model_config = config.get_base_model_config()
+        training = Training(training_config=training_config, base_model_config = base_model_config, callback_config=callbacks_config)
         training.prepare_data()
         training.train()
 

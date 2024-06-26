@@ -1,6 +1,6 @@
 AUGMENTATION: True
 IMAGE_SIZE: [299, 299, 3] # for inception v3
-INCLUDE_TOP: False
+BATCH_SIZE: 16
 EPOCHS: 1
 CLASSES: 15
 WEIGHTS: imagenet

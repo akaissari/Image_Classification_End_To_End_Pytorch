@@ -9,6 +9,7 @@ class DataIngestionConfig:
     train_dir: Path
     val_dir: Path
     test_dir: Path
+    data_name:str
 
 
 @dataclass(frozen=True)
@@ -18,7 +19,6 @@ class BaseModelConfig:
     updated_base_model_path: Path
     params_image_size: list
     params_learning_rate: float
-    params_include_top: bool
     params_weights: str
     params_classes: int
 
@@ -38,6 +38,7 @@ class TrainingConfig:
     params_epochs: int
     params_batch_size: int
     params_is_augmentation: bool
+    params_weights: str
     params_image_size: list
 
 @dataclass(frozen=True)

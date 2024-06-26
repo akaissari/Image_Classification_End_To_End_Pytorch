@@ -12,14 +12,7 @@ class BaseModel:
 
     def get_base_model(self):
         # Load pretrained Inception V3
-        if self.config.params_weights == 'imagenet':
-            model = models.inception_v3(pretrained=True)
-        else:
-            model = models.inception_v3(pretrained=False)
-        
-        if not self.config.params_include_top:
-            model = nn.Sequential(*list(model.children())[:-1])
-        
+        model = models.inception_v3(aux_logits=False)  
         self.model = model.to(self.device)
         self.save_model(path=self.config.base_model_path, model=self.model)
 
@@ -33,12 +26,8 @@ class BaseModel:
                 for param in children[i].parameters():
                     param.requires_grad = False
 
-        model.fc = nn.Sequential(
-            nn.Flatten(),
-            nn.Linear(2048, classes),
-            nn.Softmax(dim=1)
-        ).to(self.device)
-
+        model.fc = nn.Linear(2048, classes)
+        model = model.to(self.device)
         optimizer = optim.SGD(model.parameters(), lr=learning_rate)
         criterion = nn.CrossEntropyLoss()
 

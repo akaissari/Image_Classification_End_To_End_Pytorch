@@ -21,22 +21,21 @@ class DataIngestion:
 
     def split_data(self):
 
-        data_dir = self.config.unzip_dir
+        data_dir = os.path.join(self.config.unzip_dir,self.config.data_name)
         train_dir = self.config.train_dir
         val_dir = self.config.val_dir
         test_dir = self.config.test_dir
 
-        for directory in [train_dir, val_dir, test_dir]:
-            for class_dir in os.listdir(data_dir):
-                class_path = os.path.join(data_dir, class_dir)
-                if os.path.isdir(class_path):
-                    files = [os.path.join(class_path, f) for f in os.listdir(class_path) if os.path.isfile(os.path.join(class_path, f))]
-                    np.random.shuffle(files)
-                    train_split = int(0.7 * len(files))
-                    val_split = int(0.85 * len(files))
-                    self._move_files(files[:train_split], os.path.join(train_dir, class_dir))
-                    self._move_files(files[train_split:val_split], os.path.join(val_dir, class_dir))
-                    self._move_files(files[val_split:], os.path.join(test_dir, class_dir))
+        for class_dir in os.listdir(data_dir):
+            class_path = os.path.join(data_dir, class_dir)
+            if os.path.isdir(class_path) and class_dir!=self.config.data_name:
+                files = [os.path.join(class_path, f) for f in os.listdir(class_path) if os.path.isfile(os.path.join(class_path, f))]
+                np.random.shuffle(files)
+                train_split = int(0.7 * len(files))
+                val_split = int(0.85 * len(files))
+                self._move_files(files[:train_split], os.path.join(train_dir, class_dir))
+                self._move_files(files[train_split:val_split], os.path.join(val_dir, class_dir))
+                self._move_files(files[val_split:], os.path.join(test_dir, class_dir))
     
     def _move_files(self, files, dest):
         """
