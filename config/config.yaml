@@ -24,3 +24,7 @@ training:
   root_dir: artifacts/training
   trained_model_path: artifacts/training/model_trained_weights.pth
   data_path: artifacts/data_ingestion
+
+evaluation:
+  test_dir: artifacts/data_ingestion/test
+  trained_model_path: artifacts/training/model_trained_weights.pth

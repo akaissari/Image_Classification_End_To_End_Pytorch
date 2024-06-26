@@ -79,3 +79,14 @@ class ConfigurationManager:
             params_image_size=params.IMAGE_SIZE
         )
         return training_config
+
+    def get_evaluation_config(self) -> EvaluationConfig:
+        evaluation = self.config.evaluation
+        eval_config = EvaluationConfig(
+            data_path=evaluation.data_path,
+            model_path=evaluation.trained_model_path,
+            all_params=self.params,
+            params_image_size=self.params.IMAGE_SIZE,
+            params_batch_size=self.params.BATCH_SIZE
+        )
+        return eval_config
