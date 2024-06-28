@@ -6,7 +6,7 @@ import torch
 from ImageClassifier.components.callbacks import Callback
 import os
 from tqdm import tqdm
-
+import json
 class Training:
     def __init__(self, training_config: TrainingConfig, base_model_config: BaseModelConfig, callback_config: CallbacksConfig):
         self.training_config = training_config
@@ -45,7 +45,11 @@ class Training:
             ])
         train_dataset = datasets.ImageFolder(root=os.path.join(self.training_config.data_path, 'train'), transform=train_transforms)
         valid_dataset = datasets.ImageFolder(root= os.path.join(self.training_config.data_path, 'val'), transform=valid_transforms)
-
+        class_to_idx = train_dataset.class_to_idx
+        idx_to_class = {v: k for k, v in class_to_idx.items()}
+        with open('idx_to_class.py', 'w') as f:
+            f.write('idx_to_class = ')
+            f.write(json.dumps(idx_to_class))
         # Data loaders
         self.train_loader = DataLoader(train_dataset, batch_size=self.training_config.params_batch_size, shuffle=True)
         self.valid_loader = DataLoader(valid_dataset, batch_size=self.training_config.params_batch_size, shuffle=False)
