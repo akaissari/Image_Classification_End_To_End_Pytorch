@@ -43,8 +43,8 @@ class TrainingConfig:
 
 @dataclass(frozen=True)
 class EvaluationConfig:
-    data_path: Path
-    model_path: Path
+    test_dir: Path
+    trained_model_path: Path
     all_params: dict
     params_image_size: list
     params_batch_size: int

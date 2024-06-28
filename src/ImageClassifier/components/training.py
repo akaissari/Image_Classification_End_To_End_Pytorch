@@ -14,7 +14,7 @@ class Training:
         self.base_model = BaseModel(base_model_config)
         self.device = self.base_model.device
         self.base_model.get_base_model()
-        self.base_model.update_base_model()
+        _ = self.base_model.update_base_model()
         model, self.optimizer, self.criterion = self.base_model.full_model, self.base_model.optimizer, self.base_model.criterion
         self.model = model
         self.train_loader = None

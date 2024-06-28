@@ -87,8 +87,8 @@ class ConfigurationManager:
     def get_evaluation_config(self) -> EvaluationConfig:
         evaluation = self.config.evaluation
         eval_config = EvaluationConfig(
-            data_path=evaluation.data_path,
-            model_path=evaluation.trained_model_path,
+            test_dir=evaluation.test_dir,
+            trained_model_path=evaluation.trained_model_path,
             all_params=self.params,
             params_image_size=self.params.IMAGE_SIZE,
             params_batch_size=self.params.BATCH_SIZE

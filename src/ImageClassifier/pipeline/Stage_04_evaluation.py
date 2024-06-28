@@ -14,7 +14,8 @@ class EvaluationPipeline:
     def main(self):
         config = ConfigurationManager()
         test_config = config.get_evaluation_config()
-        evaluator = Evaluation(config=test_config)
+        config_model = config.get_base_model_config()
+        evaluator = Evaluation(config_eval=test_config, config_model=config_model)
         evaluator.evaluation()
         evaluator.save_score()
 

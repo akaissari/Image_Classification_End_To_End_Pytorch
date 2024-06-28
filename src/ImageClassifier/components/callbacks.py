@@ -3,6 +3,7 @@ import time
 import torch
 from torch.utils.tensorboard import SummaryWriter
 from ImageClassifier.entity.config_entity import CallbacksConfig
+from pathlib import Path
 
 class Callback:
     def __init__(self, config: CallbacksConfig):
@@ -25,8 +26,10 @@ class Callback:
     def save_model_checkpoint(self, model, optimizer, epoch, is_best=False):
         checkpoint_path = self.config.checkpoint_model_filepath
         if is_best:
+            if not isinstance(checkpoint_path, str):
+                checkpoint_path = str(checkpoint_path)
             checkpoint_path = checkpoint_path.replace('.pth', f'_best_epoch_{epoch}.pth')
-        
+            checkpoint_path = Path(checkpoint_path)
         torch.save({
             'epoch': epoch,
             'model_state_dict': model.state_dict(),
